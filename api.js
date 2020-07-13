@@ -1,5 +1,5 @@
 'use strict'
-const Api = require('claudia-api-buider')
+const Api = require('claudia-api-builder')
 const api = new Api()
 
 api.get('/pizzas', () => {
@@ -10,3 +10,5 @@ api.get('/pizzas', () => {
         'Margherita'
     ]
 })
+
+module.exports = api 
