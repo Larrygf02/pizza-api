@@ -3,6 +3,7 @@ const Api = require('claudia-api-builder')
 const api = new Api() 
 
 const getPizzas = require('./handlers/get-pizzas')
+const createOrder = require('./handlers/create-order')
 
 api.get('/', () => 'Welcome to Pizza Api')
 
@@ -15,5 +16,14 @@ api.get('/pizzas/{id}', (request) => {
 },{
     error: 404
 })
+
+api.post('/orders', (request) => {
+    return createOrder(request.body)
+}, {
+    sucess: 201,
+    error: 400
+})
+
+
 
 module.exports = api
