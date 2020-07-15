@@ -14,5 +14,11 @@ function createOrder(request) {
             orderStatus: 'pending'
         }
     }).promise()
+    .then(res => {
+        return res
+    })
+    .catch(error => {
+        throw error
+    })
 }
 module.exports = createOrder
