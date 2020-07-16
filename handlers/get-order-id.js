@@ -11,4 +11,4 @@ function getOrderbyId(orderId) {
     .then(result => result.Item)
 }
 
-module.exports = getOrders
+module.exports = getOrderbyId

@@ -7,6 +7,7 @@ const createOrder = require('./handlers/create-order')
 const updateOrder = require('./handlers/update-order')
 const deleteOrder = require('./handlers/delete-order')
 const getOrders = require('./handlers/get-orders')
+const getOrderbyId = require('./handlers/get-order-id')
 
 api.get('/', () => 'Welcome to Pizza Api')
 
@@ -22,6 +23,12 @@ api.get('/pizzas/{id}', (request) => {
 
 api.get('/orders', () => {
     return getOrders()
+}, {
+    error: 404
+})
+
+api.get('/orders/{id}', (request) => {
+    return getOrderbyId(request.pathParams.id)
 }, {
     error: 404
 })
