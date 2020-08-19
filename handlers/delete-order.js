@@ -2,14 +2,11 @@ const AWS = require('aws-sdk')
 const docClient = new AWS.DynamoDB.DocumentClient()
 const rp = require('minimal-request-promise');
 
-function deleteOrder(id) {
-    if (!id) {
-        throw new Error('Order id is required for deleting order')
-    }
+function deleteOrder(orderId) {
     return docClient.get({
         TableName: 'pizza-orders',
         Key: {
-            orderId: id
+            orderId: orderId
         }
     }).promise()
     .then(response => response.item)
