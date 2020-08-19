@@ -8,6 +8,7 @@ const updateOrder = require('./handlers/update-order')
 const deleteOrder = require('./handlers/delete-order')
 const getOrders = require('./handlers/get-orders')
 const getOrderbyId = require('./handlers/get-order-id')
+const updateDeliveryStatus = require('./handlers/update-delivery-status')
 
 api.get('/', () => 'Welcome to Pizza Api')
 
@@ -49,6 +50,11 @@ api.put('/orders/{id}', (request) => {
 api.delete('/orders/{id}', (request) => {
     return deleteOrder(request.pathParams.id)
 }, {
+    error: 400
+})
+
+api.post('/delivery', request => updateDeliveryStatus(request.body), {
+    success:200,
     error: 400
 })
 

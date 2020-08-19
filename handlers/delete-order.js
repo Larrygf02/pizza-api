@@ -8,7 +8,7 @@ function deleteOrder(id) {
     return docClient.delete({
         TableName: 'pizza-orders',
         Key: {
-            orderId: orderId
+            orderId: id
         }
     }).promise()
     .then(response => response)
