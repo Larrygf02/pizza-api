@@ -1,17 +1,37 @@
 const AWS = require('aws-sdk')
 const docClient = new AWS.DynamoDB.DocumentClient()
+const rp = require('minimal-request-promise');
 
 function deleteOrder(id) {
     if (!id) {
         throw new Error('Order id is required for deleting order')
     }
-    return docClient.delete({
+    return docClient.get({
         TableName: 'pizza-orders',
         Key: {
             orderId: id
         }
     }).promise()
-    .then(response => response)
+    .then(response => response.item)
+    .then(item => {
+        if (item.orderStatus !== 'pending') {
+            throw new Error('Order status is not pending')
+        }
+        return rp.delete(`https://some-like-it-hot.effortless-serverless.com/delivery/${orderId}`, {
+            headers: {
+                'Authorization': 'aunt-marias-pizzeria-1234567890',
+                "Content-type": "application/json"
+            }
+        })
+        .then(() => {
+            return docClient.delete({
+                TableName: 'pizza-orders',
+                Key: {
+                    orderId: id
+                }
+            }).promise()
+        })
+    })
     .catch(error => {
         throw error
     })
